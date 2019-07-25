@@ -108,43 +108,52 @@ function buildCharts(country, graph) {
 
       var trace1 = {
         x: data.Date,
-        y: data.Total,
-        name: 'Oil',
+        y: data.Industrial,
+        name: 'Industrial',
         fill: 'tozeroy',
         type: 'scatter',
         mode: 'none',
         stackgroup: 'one'
       };
 
-      // var trace2 = {
-      //   x: data.year,
-      //   y: data.ng_consumption,
-      //   name: 'Natural Gas',
-      //   fill: 'tonexty',
-      //   type: 'scatter',
-      //   mode: 'none',
-      //   stackgroup: 'one'
-      // };
-
-      // var trace3 = {
-      //   x: data.year,
-      //   y: data.coal_consumption,
-      //   name: 'Coal',
-      //   fill: 'tonexty',
-      //   type: 'scatter',
-      //   mode: 'none',
-      //   stackgroup: 'one'
-      // };
-
-
-      var layout = {
-        title: `${country} - Fossil Fuel Consumption`,
-        xaxis: { title: 'Year' },
-        yaxis: { title: 'Consumed Energy (MTOE)' }
+      var trace2 = {
+        x: data.Date,
+        y: data.Electric,
+        name: 'Electric',
+        fill: 'tonexty',
+        type: 'scatter',
+        mode: 'none',
+        stackgroup: 'one'
       };
 
-      // var all_traces = [trace1, trace2, trace3];
-      var all_traces = [trace1];
+      var trace3 = {
+        x: data.Date,
+        y: data.Commercial,
+        name: 'Commercial',
+        fill: 'tonexty',
+        type: 'scatter',
+        mode: 'none',
+        stackgroup: 'one'
+      };
+
+      var trace4 = {
+        x: data.Date,
+        y: data.Residential,
+        name: 'Residential',
+        fill: 'tonexty',
+        type: 'scatter',
+        mode: 'none',
+        stackgroup: 'one'
+      };
+
+      var layout = {
+        title: `US - Total Natural Gas Consumption`,
+        xaxis: { title: 'Year' },
+        yaxis: { title: 'Consumed Natural Gas (Bscf)' }
+      };
+
+      var all_traces = [trace1, trace2, trace3, trace4];
+      // var all_traces = [trace1];
     } 
     
     else if (graph === "Electric") {
@@ -152,27 +161,17 @@ function buildCharts(country, graph) {
           var trace1 = {
             x: data.Date,
             y: data.Electric,
-            name: 'Non-Renewables',
+            name: 'Electric',
             fill: 'tonexty',
             type: 'scatter',
             mode: 'none',
             stackgroup: 'one'
           };
-    
-          // var trace2 = {
-          //   x: data.year,
-          //   y: data.electricity_renewables,
-          //   name: 'Renewables',
-          //   fill: 'tonexty',
-          //   type: 'scatter',
-          //   mode: 'none',
-          //   stackgroup: 'one'
-          // };
-    
+
           var layout = {
-            title: `${country} - Electricity Consumption`,
+            title: `US - Natural Gas Consumption for Electric Power`,
             xaxis: { title: 'Year' },
-            yaxis: { title: 'Consumed Electricity (TWh)' }
+            yaxis: { title: 'Consumed Natural Gas (Bscf)' }
           };
     
           // var all_traces = [trace1, trace2];
@@ -181,105 +180,66 @@ function buildCharts(country, graph) {
     }
 
     else if (graph === "Industrial") {
-    
+
       var trace1 = {
         x: data.Date,
         y: data.Industrial,
-        name: 'CO2 Emissions',
-        fill: 'tonexty',
+        name: 'Industrial',
+        fill: 'tozeroy',
         type: 'scatter',
         mode: 'none',
         stackgroup: 'one'
       };
 
- 
       var layout = {
-        title: `${country} - CO2 Emissions`,
+        title: `US - Industrial Natural Gas Consumption`,
         xaxis: { title: 'Year' },
-        yaxis: { title: 'CO2 Emissions (Mt)' }
+        yaxis: { title: 'Consumed Natural Gas (Bscf)' }
       };
 
-       var all_traces = [trace1];
+      var all_traces = [trace1];
 
-}
+    }
 
-else if (graph === "Residential") {
+    else if (graph === "Residential") {
 
-
-    var trace1 = {
+      var trace1 = {
         x: data.Date,
         y: data.Residential,
-        name: 'Agriculture',
+        name: 'Residential',
         fill: 'tonexty',
         type: 'scatter',
         mode: 'none',
         stackgroup: 'one'
       };
 
-      // var trace2 = {
-      //   x: data.year,
-      //   y: data.mining,
-      //   name: 'Mining',
-      //   fill: 'tonexty',
-      //   type: 'scatter',
-      //   mode: 'none',
-      //   stackgroup: 'one'
-      // };
+      var layout = {
+        title: `US - Residential Natural Gas Consumption`,
+        xaxis: { title: 'Year' },
+        yaxis: { title: 'Consumed Natural Gas(Bscf)' }
+      };
 
-      // var trace3 = {
-      //   x: data.year,
-      //   y: data.manufacturing,
-      //   name: 'Manufacturing',
-      //   fill: 'tonexty',
-      //   type: 'scatter',
-      //   mode: 'none',
-      //   stackgroup: 'one'
-      // };
+      // var all_traces = [trace1, trace2, trace3, trace4, trace5, trace6, trace7];
+      var all_traces = [trace1];
 
-      // var trace4 = {
-      //   x: data.year,
-      //   y: data.construction,
-      //   name: 'Construction',
-      //   fill: 'tonexty',
-      //   type: 'scatter',
-      //   mode: 'none',
-      //   stackgroup: 'one'
-      // };
+    }
 
-      // var trace5 = {
-      //   x: data.year,
-      //   y: data.wholesale,
-      //   name: 'Wholesale',
-      //   fill: 'tonexty',
-      //   type: 'scatter',
-      //   mode: 'none',
-      //   stackgroup: 'one'
-      // };
+    else if (graph === "Commercial") {
 
-      // var trace6 = {
-      //   x: data.year,
-      //   y: data.transport,
-      //   name: 'Transport',
-      //   fill: 'tonexty',
-      //   type: 'scatter',
-      //   mode: 'none',
-      //   stackgroup: 'one'
-      // };
-
-      // var trace7 = {
-      //   x: data.year,
-      //   y: data.other,
-      //   name: 'Other',
-      //   fill: 'tonexty',
-      //   type: 'scatter',
-      //   mode: 'none',
-      //   stackgroup: 'one'
-      // };
+      var trace1 = {
+        x: data.Date,
+        y: data.Commercial,
+        name: 'Commercial',
+        fill: 'tonexty',
+        type: 'scatter',
+        mode: 'none',
+        stackgroup: 'one'
+      };
 
       var layout = {
-        title: `${country} - GDP by Economic Sector`,
+        title: `US - Commercial Natural Gas Consumption`,
         xaxis: { title: 'Year' },
-        yaxis: { title: 'GDP (2005 price $)' }
+        yaxis: { title: 'Consumed Natural Gas(Bscf)' }
       };
 
       // var all_traces = [trace1, trace2, trace3, trace4, trace5, trace6, trace7];
