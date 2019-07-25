@@ -92,32 +92,34 @@ function buildGauge(level, gauge, title) {
 }
 
 
-// function buildCharts(country, graph) {
-function buildCharts(country) {
+function buildCharts(country, graph) {
+
   console.log(country)
   console.log(graph)
 
-  switch (country) {
-    case "Consumption":
-      graphNames = ["Industrial", "Electric", "Commercial", "Residential","Total"];
-      break;
-    case "Prices":
-      graphNames = ["Res-Com", "Elec-Ind"];
-      break;
-    case "Production":
-        graphNames = ["Total"];
-      break;
-  }
+  // switch (country) {
+  //   case "Consumption":
+  //     graphNames = ["Industrial", "Electric", "Commercial", "Residential","Total"];
+  //     break;
+  //   case "Price":
+  //     graphNames = ["Res-Com", "Elec-Ind"];
+  //     break;
+  //   case "Production":
+  //       graphNames = ["Total"];
+  //     break;
+  // }
 
-  var selector1 = d3.select("#selDataset1");  
+  // var selector1 = d3.select("#selDataset1");  
   
-  graphNames.forEach((graph) => {
-    console.log(graph)
-    selector1
-      .append("option")
-      .text(graph)
-      .property("value", graph);
-  })
+  // graphNames.forEach((graph) => {
+  //   console.log(graph)
+  //   selector1
+  //     .append("option")
+  //     .text(graph)
+  //     .property("value", graph);
+  // })
+
+  // const firstGraph = graphNames[0];
 
   // @TODO: Use `d3.json` to fetch the sample data for the plots
   d3.json("/data").then(function (data) {
@@ -234,7 +236,7 @@ function buildCharts(country) {
 
       case "Price":
         switch (graph){
-          case "Res-Com":
+          case "Residential":
             var trace1 = {
               x: data.Date,
               y: data.Price_HH,
@@ -247,17 +249,10 @@ function buildCharts(country) {
               name: 'Residential',
               type: 'scatter'
             };
-            var trace3 = {
-              x: data.Date,
-              y: data.Price_Com,
-              name: 'Commercial',
-              type: 'scatter'
-            };
-
-            var all_traces = [trace1, trace2, trace3];
+            var all_traces = [trace1, trace2];
             break;
 
-          case "Elec-Ind":
+          case "Electric":
             var trace1 = {
               x: data.Date,
               y: data.Price_HH,
@@ -270,15 +265,50 @@ function buildCharts(country) {
               name: 'Electric',
               type: 'scatter'
             };
-            var trace3 = {
+            var all_traces = [trace1, trace2];
+            break
+
+          case "Commercial":
+            var trace1 = {
               x: data.Date,
-              y: data.Price_Ind,
-              name: 'Industrial',
+              y: data.Price_HH,
+              name: 'Henry Hub',
               type: 'scatter'
             };
+            var trace2 = {
+              x: data.Date,
+              y: data.Price_Com,
+              name: 'Commercial',
+              type: 'scatter'
+            };
+            var all_traces = [trace1, trace2];
+            break;
 
-            var all_traces = [trace1, trace2, trace3];
-            break
+          case "Industrial":
+            var trace1 = {
+              x: data.Date,
+              y: data.Price_HH,
+              name: 'Henry Hub',
+              type: 'scatter'
+            };
+            var trace2 = {
+              x: data.Date,
+              y: data.Price_Ind,
+              name: 'Commercial',
+              type: 'scatter'
+            };
+            var all_traces = [trace1, trace2];
+            break;
+
+          case "Total":
+            var trace1 = {
+              x: data.Date,
+              y: data.Price_HH,
+              name: 'Henry Hub',
+              type: 'scatter'
+            };
+            var all_traces = [trace1];
+            break;
         }
         var layout = {
           title: `US - Natural Gas ${country}`,
@@ -315,10 +345,20 @@ function init() {
         .property("value", country);
     });  
 
-    // var selector1 = d3.select("#selDataset1");
-
-    // graphNames = ["Industrial", "Electric", "Commercial", "Residential","Total"];
-    // console.log(graphNames)
+    // switch (country) {
+    //   case "Consumption":
+    //     graphNames = ["Industrial", "Electric", "Commercial", "Residential","Total"];
+    //     break;
+    //   case "Price":
+    //     graphNames = ["Res-Com", "Elec-Ind"];
+    //     break;
+    //   case "Production":
+    //       graphNames = ["Total"];
+    //     break;
+    // }
+  
+    // var selector1 = d3.select("#selDataset1");  
+    
     // graphNames.forEach((graph) => {
     //   console.log(graph)
     //   selector1
@@ -326,28 +366,44 @@ function init() {
     //     .text(graph)
     //     .property("value", graph);
     // })
+  
+    // const firstGraph = graphNames[0];
 
-    // // Use the first sample from the list to build the initial plots
-    // const firstCountry = countryNames[0];    
-    // const firstGraph = graphNames[0];   
-    // buildCharts(firstCountry, firstGraph);
 
+    var selector1 = d3.select("#selDataset1");
+
+    graphNames = ["Industrial", "Electric", "Commercial", "Residential","Total"];
+    
+    console.log(graphNames)
+    graphNames.forEach((graph) => {
+      console.log(graph)
+      selector1
+        .append("option")
+        .text(graph)
+        .property("value", graph);
+    })
+
+    // Use the first sample from the list to build the initial plots
     const firstCountry = countryNames[0];
-    buildCharts(firstCountry);
+    const firstGraph = graphNames[0];
+    buildCharts(firstCountry, firstGraph);
+
+    // const firstCountry = countryNames[0];
+    // buildCharts(firstCountry);
 
   });
 }
 
-// function optionChanged(newCountry, newGraph) {
-//   // Fetch new data each time a new sample is selected  
-//   buildCharts(newCountry, newGraph);
-  
-// }
+function optionChanged(newCountry, newGraph) {
 
-function optionChanged(newCountry) {
-  // Fetch new data each time a new sample is selected  
-  buildCharts(newCountry);  
+  // Fetch new data each time a new sample is selected
+  buildCharts(newCountry, newGraph);  
 }
+
+// function optionChanged(newCountry) {
+//   // Fetch new data each time a new sample is selected  
+//   buildCharts(newCountry);  
+// }
 
 // Initialize the dashboard
 
