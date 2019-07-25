@@ -510,7 +510,7 @@ function init() {
 
     var selector1 = d3.select("#selDataset1");
 
-    graphNames = ["Total", "Industrial", "Electric", "Residential"];
+    graphNames = ["Industrial", "Electric", "Commercial", "Residential","Total"];
     console.log(graphNames)
     graphNames.forEach((graph) => {
       console.log(graph)
