@@ -111,6 +111,7 @@ def data():
         "Electric" : df_test.Electric.values.tolist(),
         "Industrial" : df_test.Industrial.values.tolist(),
         "Residential" : df_test.Residential.values.tolist(),
+        "Commercial" : df_test.Commercial.values.tolist(),
     }
     # return df_test.to_json()
     return jsonify(dict_final)
