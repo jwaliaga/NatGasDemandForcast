@@ -102,152 +102,268 @@ function buildCharts(country, graph) {
   // @TODO: Use `d3.json` to fetch the sample data for the plots
   d3.json("/data").then(function (data) {
 
+    switch (country) {
+      case "Consumption":
 
-    
-    if (graph === "Total") {
+        switch (graph){
+          case "Total":
+            var trace1 = {
+              x: data.Date,
+              y: data.Industrial,
+              name: 'Industrial',
+              fill: 'tozeroy',
+              type: 'scatter',
+              mode: 'none',
+              stackgroup: 'one'
+            };
 
-      var trace1 = {
-        x: data.Date,
-        y: data.Industrial,
-        name: 'Industrial',
-        fill: 'tozeroy',
-        type: 'scatter',
-        mode: 'none',
-        stackgroup: 'one'
-      };
+            var trace2 = {
+              x: data.Date,
+              y: data.Electric,
+              name: 'Electric',
+              fill: 'tonexty',
+              type: 'scatter',
+              mode: 'none',
+              stackgroup: 'one'
+            };
 
-      var trace2 = {
-        x: data.Date,
-        y: data.Electric,
-        name: 'Electric',
-        fill: 'tonexty',
-        type: 'scatter',
-        mode: 'none',
-        stackgroup: 'one'
-      };
+            var trace3 = {
+              x: data.Date,
+              y: data.Commercial,
+              name: 'Commercial',
+              fill: 'tonexty',
+              type: 'scatter',
+              mode: 'none',
+              stackgroup: 'one'
+            };
 
-      var trace3 = {
-        x: data.Date,
-        y: data.Commercial,
-        name: 'Commercial',
-        fill: 'tonexty',
-        type: 'scatter',
-        mode: 'none',
-        stackgroup: 'one'
-      };
+            var trace4 = {
+              x: data.Date,
+              y: data.Residential,
+              name: 'Residential',
+              fill: 'tonexty',
+              type: 'scatter',
+              mode: 'none',
+              stackgroup: 'one'
+            };
 
-      var trace4 = {
-        x: data.Date,
-        y: data.Residential,
-        name: 'Residential',
-        fill: 'tonexty',
-        type: 'scatter',
-        mode: 'none',
-        stackgroup: 'one'
-      };
+            var all_traces = [trace1, trace2, trace3, trace4];
+            break;
+          case "Electric":
+              var trace1 = {
+                x: data.Date,
+                y: data.Electric,
+                name: 'Electric',
+                fill: 'tonexty',
+                type: 'scatter',
+                mode: 'none',
+                stackgroup: 'one'
+              };
 
-      var layout = {
-        title: `US - Total Natural Gas Consumption`,
-        xaxis: { title: 'Year' },
-        yaxis: { title: 'Consumed Natural Gas (Bscf)' }
-      };
+              var all_traces = [trace1];
+              break;
+          case "Industrial":
+              var trace1 = {
+                x: data.Date,
+                y: data.Industrial,
+                name: 'Industrial',
+                fill: 'tozeroy',
+                type: 'scatter',
+                mode: 'none',
+                stackgroup: 'one'
+              };             
+        
+              var all_traces = [trace1];
+              break;
+          case "Residential":
+              var trace1 = {
+                x: data.Date,
+                y: data.Residential,
+                name: 'Residential',
+                fill: 'tonexty',
+                type: 'scatter',
+                mode: 'none',
+                stackgroup: 'one'
+              };
 
-      var all_traces = [trace1, trace2, trace3, trace4];
-      // var all_traces = [trace1];
-    } 
-    
-    else if (graph === "Electric") {
-    
-          var trace1 = {
-            x: data.Date,
-            y: data.Electric,
-            name: 'Electric',
-            fill: 'tonexty',
-            type: 'scatter',
-            mode: 'none',
-            stackgroup: 'one'
-          };
+              var all_traces = [trace1];
+              break;
+          case "Commercial":
+              var trace1 = {
+                x: data.Date,
+                y: data.Commercial,
+                name: 'Commercial',
+                fill: 'tonexty',
+                type: 'scatter',
+                mode: 'none',
+                stackgroup: 'one'
+              };
+              
+              var all_traces = [trace1];
+              break;
+        }
 
-          var layout = {
-            title: `US - Natural Gas Consumption for Electric Power`,
-            xaxis: { title: 'Year' },
-            yaxis: { title: 'Consumed Natural Gas (Bscf)' }
-          };
-    
-          // var all_traces = [trace1, trace2];
-          var all_traces = [trace1];
+        var layout = {
+          title: `US - ${country} Natural Gas ${graph}`,
+          xaxis: { title: 'Year' },
+          yaxis: { title: 'Consumed Natural Gas (Bscf)' }
+        };
 
+        Plotly.newPlot('temp-stacked-lineChart', all_traces, layout, { responsive: true });
+
+        break;
+      case "Production":
+        
+        break;
+      case "Price":
+       
+        break;
     }
+    
+    // if (graph === "Total") {
 
-    else if (graph === "Industrial") {
+    //   var trace1 = {
+    //     x: data.Date,
+    //     y: data.Industrial,
+    //     name: 'Industrial',
+    //     fill: 'tozeroy',
+    //     type: 'scatter',
+    //     mode: 'none',
+    //     stackgroup: 'one'
+    //   };
 
-      var trace1 = {
-        x: data.Date,
-        y: data.Industrial,
-        name: 'Industrial',
-        fill: 'tozeroy',
-        type: 'scatter',
-        mode: 'none',
-        stackgroup: 'one'
-      };
+    //   var trace2 = {
+    //     x: data.Date,
+    //     y: data.Electric,
+    //     name: 'Electric',
+    //     fill: 'tonexty',
+    //     type: 'scatter',
+    //     mode: 'none',
+    //     stackgroup: 'one'
+    //   };
 
-      var layout = {
-        title: `US - Industrial Natural Gas Consumption`,
-        xaxis: { title: 'Year' },
-        yaxis: { title: 'Consumed Natural Gas (Bscf)' }
-      };
+    //   var trace3 = {
+    //     x: data.Date,
+    //     y: data.Commercial,
+    //     name: 'Commercial',
+    //     fill: 'tonexty',
+    //     type: 'scatter',
+    //     mode: 'none',
+    //     stackgroup: 'one'
+    //   };
 
-      var all_traces = [trace1];
+    //   var trace4 = {
+    //     x: data.Date,
+    //     y: data.Residential,
+    //     name: 'Residential',
+    //     fill: 'tonexty',
+    //     type: 'scatter',
+    //     mode: 'none',
+    //     stackgroup: 'one'
+    //   };
 
-    }
+    //   var layout = {
+    //     title: `US - Total Natural Gas Consumption`,
+    //     xaxis: { title: 'Year' },
+    //     yaxis: { title: 'Consumed Natural Gas (Bscf)' }
+    //   };
 
-    else if (graph === "Residential") {
+    //   var all_traces = [trace1, trace2, trace3, trace4];
+    //   // var all_traces = [trace1];
+    // } 
+    
+    // else if (graph === "Electric") {
+    
+    //       var trace1 = {
+    //         x: data.Date,
+    //         y: data.Electric,
+    //         name: 'Electric',
+    //         fill: 'tonexty',
+    //         type: 'scatter',
+    //         mode: 'none',
+    //         stackgroup: 'one'
+    //       };
 
-      var trace1 = {
-        x: data.Date,
-        y: data.Residential,
-        name: 'Residential',
-        fill: 'tonexty',
-        type: 'scatter',
-        mode: 'none',
-        stackgroup: 'one'
-      };
+    //       var layout = {
+    //         title: `US - Natural Gas Consumption for Electric Power`,
+    //         xaxis: { title: 'Year' },
+    //         yaxis: { title: 'Consumed Natural Gas (Bscf)' }
+    //       };
+    
+    //       // var all_traces = [trace1, trace2];
+    //       var all_traces = [trace1];
 
-      var layout = {
-        title: `US - Residential Natural Gas Consumption`,
-        xaxis: { title: 'Year' },
-        yaxis: { title: 'Consumed Natural Gas(Bscf)' }
-      };
+    // }
 
-      // var all_traces = [trace1, trace2, trace3, trace4, trace5, trace6, trace7];
-      var all_traces = [trace1];
+    // else if (graph === "Industrial") {
 
-    }
+    //   var trace1 = {
+    //     x: data.Date,
+    //     y: data.Industrial,
+    //     name: 'Industrial',
+    //     fill: 'tozeroy',
+    //     type: 'scatter',
+    //     mode: 'none',
+    //     stackgroup: 'one'
+    //   };
 
-    else if (graph === "Commercial") {
+    //   var layout = {
+    //     title: `US - Industrial Natural Gas Consumption`,
+    //     xaxis: { title: 'Year' },
+    //     yaxis: { title: 'Consumed Natural Gas (Bscf)' }
+    //   };
 
-      var trace1 = {
-        x: data.Date,
-        y: data.Commercial,
-        name: 'Commercial',
-        fill: 'tonexty',
-        type: 'scatter',
-        mode: 'none',
-        stackgroup: 'one'
-      };
+    //   var all_traces = [trace1];
 
-      var layout = {
-        title: `US - Commercial Natural Gas Consumption`,
-        xaxis: { title: 'Year' },
-        yaxis: { title: 'Consumed Natural Gas (Bscf)' }
-      };
+    // }
 
-      // var all_traces = [trace1, trace2, trace3, trace4, trace5, trace6, trace7];
-      var all_traces = [trace1];
+    // else if (graph === "Residential") {
 
-    }
+    //   var trace1 = {
+    //     x: data.Date,
+    //     y: data.Residential,
+    //     name: 'Residential',
+    //     fill: 'tonexty',
+    //     type: 'scatter',
+    //     mode: 'none',
+    //     stackgroup: 'one'
+    //   };
 
-    Plotly.newPlot('temp-stacked-lineChart', all_traces, layout, { responsive: true });
+    //   var layout = {
+    //     title: `US - Residential Natural Gas Consumption`,
+    //     xaxis: { title: 'Year' },
+    //     yaxis: { title: 'Consumed Natural Gas(Bscf)' }
+    //   };
+
+    //   // var all_traces = [trace1, trace2, trace3, trace4, trace5, trace6, trace7];
+    //   var all_traces = [trace1];
+
+    // }
+
+    // else if (graph === "Commercial") {
+
+    //   var trace1 = {
+    //     x: data.Date,
+    //     y: data.Commercial,
+    //     name: 'Commercial',
+    //     fill: 'tonexty',
+    //     type: 'scatter',
+    //     mode: 'none',
+    //     stackgroup: 'one'
+    //   };
+
+    //   var layout = {
+    //     title: `US - Commercial Natural Gas Consumption`,
+    //     xaxis: { title: 'Year' },
+    //     yaxis: { title: 'Consumed Natural Gas (Bscf)' }
+    //   };
+
+    //   // var all_traces = [trace1, trace2, trace3, trace4, trace5, trace6, trace7];
+    //   var all_traces = [trace1];
+
+    // }
+
+    // Plotly.newPlot('temp-stacked-lineChart', all_traces, layout, { responsive: true });
 
   });
 }
