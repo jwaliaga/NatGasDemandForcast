@@ -239,7 +239,7 @@ function buildCharts(country, graph) {
       var layout = {
         title: `US - Commercial Natural Gas Consumption`,
         xaxis: { title: 'Year' },
-        yaxis: { title: 'Consumed Natural Gas(Bscf)' }
+        yaxis: { title: 'Consumed Natural Gas (Bscf)' }
       };
 
       // var all_traces = [trace1, trace2, trace3, trace4, trace5, trace6, trace7];

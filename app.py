@@ -118,7 +118,7 @@ def data():
 
 @app.route("/countries")
 def countries():
-    column_names = ["US","Canada"] # Grab grab all the country names (skip column one, Year)
+    column_names = ["Consumption","Price"] # Grab grab all the country names (skip column one, Year)
     return jsonify(column_names)            # Sort country names and the returns them
 
 # @app.route("/countries")
