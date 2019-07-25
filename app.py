@@ -112,8 +112,12 @@ def data():
         "Industrial" : df_test.Industrial.values.tolist(),
         "Residential" : df_test.Residential.values.tolist(),
         "Commercial" : df_test.Commercial.values.tolist(),
-    }
-    # return df_test.to_json()
+        "Price_Elec": df_test.Price_Elec.values.tolist(),
+        "Price_Ind": df_test.Price_Ind.values.tolist(),
+        "Price_Com": df_test.Price_Com.values.tolist(),
+        "Price_Res": df_test.Price_Res.values.tolist(),
+        "Price_HH": df_test.Price_HH.values.tolist(),
+    }    
     return jsonify(dict_final)
 
 @app.route("/countries")

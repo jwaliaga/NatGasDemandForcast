@@ -10,10 +10,6 @@ function buildMetadata(country) {
   })
 }
 
-
-
-
-
 function buildGauge(level, gauge, title) {
   // Enter a speed between 0 and 180
   // var level = 175;
@@ -96,9 +92,33 @@ function buildGauge(level, gauge, title) {
 }
 
 
-function buildCharts(country, graph) {
+// function buildCharts(country, graph) {
+function buildCharts(country) {
   console.log(country)
   console.log(graph)
+
+  switch (country) {
+    case "Consumption":
+      graphNames = ["Industrial", "Electric", "Commercial", "Residential","Total"];
+      break;
+    case "Prices":
+      graphNames = ["Res-Com", "Elec-Ind"];
+      break;
+    case "Production":
+        graphNames = ["Total"];
+      break;
+  }
+
+  var selector1 = d3.select("#selDataset1");  
+  
+  graphNames.forEach((graph) => {
+    console.log(graph)
+    selector1
+      .append("option")
+      .text(graph)
+      .property("value", graph);
+  })
+
   // @TODO: Use `d3.json` to fetch the sample data for the plots
   d3.json("/data").then(function (data) {
 
@@ -210,401 +230,72 @@ function buildCharts(country, graph) {
         };
 
         Plotly.newPlot('temp-stacked-lineChart', all_traces, layout, { responsive: true });
+        break;
+
+      case "Price":
+        switch (graph){
+          case "Res-Com":
+            var trace1 = {
+              x: data.Date,
+              y: data.Price_HH,
+              name: 'Henry Hub',
+              type: 'scatter'
+            };
+            var trace2 = {
+              x: data.Date,
+              y: data.Price_Res,
+              name: 'Residential',
+              type: 'scatter'
+            };
+            var trace3 = {
+              x: data.Date,
+              y: data.Price_Com,
+              name: 'Commercial',
+              type: 'scatter'
+            };
+
+            var all_traces = [trace1, trace2, trace3];
+            break;
+
+          case "Elec-Ind":
+            var trace1 = {
+              x: data.Date,
+              y: data.Price_HH,
+              name: 'Henry Hub',
+              type: 'scatter'
+            };
+            var trace2 = {
+              x: data.Date,
+              y: data.Price_Elec,
+              name: 'Electric',
+              type: 'scatter'
+            };
+            var trace3 = {
+              x: data.Date,
+              y: data.Price_Ind,
+              name: 'Industrial',
+              type: 'scatter'
+            };
+
+            var all_traces = [trace1, trace2, trace3];
+            break
+        }
+        var layout = {
+          title: `US - Natural Gas ${country}`,
+          xaxis: { title: 'Year' },
+          yaxis: { title: `Natural Gas ${country} (US$/MMBTU)` }
+        };
+
+        Plotly.newPlot('temp-stacked-lineChart', all_traces, layout, { responsive: true });
 
         break;
       case "Production":
         
         break;
-      case "Price":
-       
-        break;
     }
-    
-    // if (graph === "Total") {
-
-    //   var trace1 = {
-    //     x: data.Date,
-    //     y: data.Industrial,
-    //     name: 'Industrial',
-    //     fill: 'tozeroy',
-    //     type: 'scatter',
-    //     mode: 'none',
-    //     stackgroup: 'one'
-    //   };
-
-    //   var trace2 = {
-    //     x: data.Date,
-    //     y: data.Electric,
-    //     name: 'Electric',
-    //     fill: 'tonexty',
-    //     type: 'scatter',
-    //     mode: 'none',
-    //     stackgroup: 'one'
-    //   };
-
-    //   var trace3 = {
-    //     x: data.Date,
-    //     y: data.Commercial,
-    //     name: 'Commercial',
-    //     fill: 'tonexty',
-    //     type: 'scatter',
-    //     mode: 'none',
-    //     stackgroup: 'one'
-    //   };
-
-    //   var trace4 = {
-    //     x: data.Date,
-    //     y: data.Residential,
-    //     name: 'Residential',
-    //     fill: 'tonexty',
-    //     type: 'scatter',
-    //     mode: 'none',
-    //     stackgroup: 'one'
-    //   };
-
-    //   var layout = {
-    //     title: `US - Total Natural Gas Consumption`,
-    //     xaxis: { title: 'Year' },
-    //     yaxis: { title: 'Consumed Natural Gas (Bscf)' }
-    //   };
-
-    //   var all_traces = [trace1, trace2, trace3, trace4];
-    //   // var all_traces = [trace1];
-    // } 
-    
-    // else if (graph === "Electric") {
-    
-    //       var trace1 = {
-    //         x: data.Date,
-    //         y: data.Electric,
-    //         name: 'Electric',
-    //         fill: 'tonexty',
-    //         type: 'scatter',
-    //         mode: 'none',
-    //         stackgroup: 'one'
-    //       };
-
-    //       var layout = {
-    //         title: `US - Natural Gas Consumption for Electric Power`,
-    //         xaxis: { title: 'Year' },
-    //         yaxis: { title: 'Consumed Natural Gas (Bscf)' }
-    //       };
-    
-    //       // var all_traces = [trace1, trace2];
-    //       var all_traces = [trace1];
-
-    // }
-
-    // else if (graph === "Industrial") {
-
-    //   var trace1 = {
-    //     x: data.Date,
-    //     y: data.Industrial,
-    //     name: 'Industrial',
-    //     fill: 'tozeroy',
-    //     type: 'scatter',
-    //     mode: 'none',
-    //     stackgroup: 'one'
-    //   };
-
-    //   var layout = {
-    //     title: `US - Industrial Natural Gas Consumption`,
-    //     xaxis: { title: 'Year' },
-    //     yaxis: { title: 'Consumed Natural Gas (Bscf)' }
-    //   };
-
-    //   var all_traces = [trace1];
-
-    // }
-
-    // else if (graph === "Residential") {
-
-    //   var trace1 = {
-    //     x: data.Date,
-    //     y: data.Residential,
-    //     name: 'Residential',
-    //     fill: 'tonexty',
-    //     type: 'scatter',
-    //     mode: 'none',
-    //     stackgroup: 'one'
-    //   };
-
-    //   var layout = {
-    //     title: `US - Residential Natural Gas Consumption`,
-    //     xaxis: { title: 'Year' },
-    //     yaxis: { title: 'Consumed Natural Gas(Bscf)' }
-    //   };
-
-    //   // var all_traces = [trace1, trace2, trace3, trace4, trace5, trace6, trace7];
-    //   var all_traces = [trace1];
-
-    // }
-
-    // else if (graph === "Commercial") {
-
-    //   var trace1 = {
-    //     x: data.Date,
-    //     y: data.Commercial,
-    //     name: 'Commercial',
-    //     fill: 'tonexty',
-    //     type: 'scatter',
-    //     mode: 'none',
-    //     stackgroup: 'one'
-    //   };
-
-    //   var layout = {
-    //     title: `US - Commercial Natural Gas Consumption`,
-    //     xaxis: { title: 'Year' },
-    //     yaxis: { title: 'Consumed Natural Gas (Bscf)' }
-    //   };
-
-    //   // var all_traces = [trace1, trace2, trace3, trace4, trace5, trace6, trace7];
-    //   var all_traces = [trace1];
-
-    // }
-
-    // Plotly.newPlot('temp-stacked-lineChart', all_traces, layout, { responsive: true });
 
   });
 }
-
-
-// function buildCharts(country). {
-// function buildCharts(country, graph) {
-//   console.log(country)
-//   console.log(graph)
-//   // @TODO: Use `d3.json` to fetch the sample data for the plots
-//   d3.json(`${graph}/${country}`).then(function (data) {
-
-
-//     if (graph === "consumption") {
-
-//       var trace1 = {
-//         x: data.year,
-//         y: data.oil_consumption,
-//         name: 'Oil',
-//         fill: 'tozeroy',
-//         type: 'scatter',
-//         mode: 'none',
-//         stackgroup: 'one'
-//       };
-
-//       var trace2 = {
-//         x: data.year,
-//         y: data.ng_consumption,
-//         name: 'Natural Gas',
-//         fill: 'tonexty',
-//         type: 'scatter',
-//         mode: 'none',
-//         stackgroup: 'one'
-//       };
-
-//       var trace3 = {
-//         x: data.year,
-//         y: data.coal_consumption,
-//         name: 'Coal',
-//         fill: 'tonexty',
-//         type: 'scatter',
-//         mode: 'none',
-//         stackgroup: 'one'
-//       };
-
-
-//       var layout = {
-//         title: `${country} - Fossil Fuel Consumption`,
-//         xaxis: { title: 'Year' },
-//         yaxis: { title: 'Consumed Energy (MTOE)' }
-//       };
-
-//       var all_traces = [trace1, trace2, trace3];
-//     } 
-    
-//     else if (graph === "electricity") {
-    
-//           var trace1 = {
-//             x: data.year,
-//             y: data.electricity_consumption,
-//             name: 'Non-Renewables',
-//             fill: 'tonexty',
-//             type: 'scatter',
-//             mode: 'none',
-//             stackgroup: 'one'
-//           };
-    
-//           var trace2 = {
-//             x: data.year,
-//             y: data.electricity_renewables,
-//             name: 'Renewables',
-//             fill: 'tonexty',
-//             type: 'scatter',
-//             mode: 'none',
-//             stackgroup: 'one'
-//           };
-    
-//           var layout = {
-//             title: `${country} - Electricity Consumption`,
-//             xaxis: { title: 'Year' },
-//             yaxis: { title: 'Consumed Electricity (TWh)' }
-//           };
-    
-//           var all_traces = [trace1, trace2];
-
-//     }
-
-//     else if (graph === "emissions") {
-    
-//       var trace1 = {
-//         x: data.year,
-//         y: data.emissions,
-//         name: 'CO2 Emissions',
-//         fill: 'tonexty',
-//         type: 'scatter',
-//         mode: 'none',
-//         stackgroup: 'one'
-//       };
-
- 
-//       var layout = {
-//         title: `${country} - CO2 Emissions`,
-//         xaxis: { title: 'Year' },
-//         yaxis: { title: 'CO2 Emissions (Mt)' }
-//       };
-
-//        var all_traces = [trace1];
-
-// }
-
-//     else {
-
-
-//     var trace1 = {
-//         x: data.year,
-//         y: data.agriculture,
-//         name: 'Agriculture',
-//         fill: 'tonexty',
-//         type: 'scatter',
-//         mode: 'none',
-//         stackgroup: 'one'
-//       };
-
-//       var trace2 = {
-//         x: data.year,
-//         y: data.mining,
-//         name: 'Mining',
-//         fill: 'tonexty',
-//         type: 'scatter',
-//         mode: 'none',
-//         stackgroup: 'one'
-//       };
-
-//       var trace3 = {
-//         x: data.year,
-//         y: data.manufacturing,
-//         name: 'Manufacturing',
-//         fill: 'tonexty',
-//         type: 'scatter',
-//         mode: 'none',
-//         stackgroup: 'one'
-//       };
-
-//       var trace4 = {
-//         x: data.year,
-//         y: data.construction,
-//         name: 'Construction',
-//         fill: 'tonexty',
-//         type: 'scatter',
-//         mode: 'none',
-//         stackgroup: 'one'
-//       };
-
-//       var trace5 = {
-//         x: data.year,
-//         y: data.wholesale,
-//         name: 'Wholesale',
-//         fill: 'tonexty',
-//         type: 'scatter',
-//         mode: 'none',
-//         stackgroup: 'one'
-//       };
-
-//       var trace6 = {
-//         x: data.year,
-//         y: data.transport,
-//         name: 'Transport',
-//         fill: 'tonexty',
-//         type: 'scatter',
-//         mode: 'none',
-//         stackgroup: 'one'
-//       };
-
-//       var trace7 = {
-//         x: data.year,
-//         y: data.other,
-//         name: 'Other',
-//         fill: 'tonexty',
-//         type: 'scatter',
-//         mode: 'none',
-//         stackgroup: 'one'
-//       };
-
-//       var layout = {
-//         title: `${country} - GDP by Economic Sector`,
-//         xaxis: { title: 'Year' },
-//         yaxis: { title: 'GDP (2005 price $)' }
-//       };
-
-//       var all_traces = [trace1, trace2, trace3, trace4, trace5, trace6, trace7];
-
-//     }
-
-//     Plotly.newPlot('temp-stacked-lineChart', all_traces, layout, { responsive: true });
-
-//   });
-// }
-
-// function init() {
-//   // Grab a reference to the dropdown select element
-//   var selector = d3.select("#selDataset");
-
-//   // Use the list of country names to populate the dropdown
-  
-//   d3.json("/countries").then((countryNames) => {
-
-//     countryNames.forEach((country) => {
-//       selector
-//         .append("option")
-//         .text(country)
-//         .property("value", country);
-//     });
-
-//     var selector1 = d3.select("#selDataset1");
-
-//     graphNames = ["consumption", "electricity", "emissions", "gdp"];
-//     graphNames.forEach((graph) => {
-//       selector1
-//         .append("option")
-//         .text(graph)
-//         .property("value", graph);
-//     })
-
-//     // Use the first sample from the list to build the initial plots
-//     const firstCountry = countryNames[0];
-//     const firstGraph = graphNames[0];
-
-//     // buildCharts(firstCountry);
-//     buildCharts(firstCountry, firstGraph);
-//     buildMetadata(firstCountry);
-//     // buildGauge(firstCountry);
-//   });
-// }
-
-// function optionChanged(newCountry, newGraph) {
-//   // Fetch new data each time a new sample is selected
-//   //   buildCharts(newCountry);
-//   buildCharts(newCountry, newGraph);
-//   buildMetadata(newCountry);
-//   // buildGauge(newCountry);
-// }
 
 function init() {
   // Grab a reference to the dropdown select element
@@ -622,33 +313,40 @@ function init() {
         .append("option")
         .text(country)
         .property("value", country);
-    });
+    });  
 
-    var selector1 = d3.select("#selDataset1");
+    // var selector1 = d3.select("#selDataset1");
 
-    graphNames = ["Industrial", "Electric", "Commercial", "Residential","Total"];
-    console.log(graphNames)
-    graphNames.forEach((graph) => {
-      console.log(graph)
-      selector1
-        .append("option")
-        .text(graph)
-        .property("value", graph);
-    })
+    // graphNames = ["Industrial", "Electric", "Commercial", "Residential","Total"];
+    // console.log(graphNames)
+    // graphNames.forEach((graph) => {
+    //   console.log(graph)
+    //   selector1
+    //     .append("option")
+    //     .text(graph)
+    //     .property("value", graph);
+    // })
 
-    // Use the first sample from the list to build the initial plots
+    // // Use the first sample from the list to build the initial plots
+    // const firstCountry = countryNames[0];    
+    // const firstGraph = graphNames[0];   
+    // buildCharts(firstCountry, firstGraph);
+
     const firstCountry = countryNames[0];
-    // const firstCountry = "US";
-    const firstGraph = graphNames[0];
-   
-    buildCharts(firstCountry, firstGraph);
+    buildCharts(firstCountry);
+
   });
 }
 
-function optionChanged(newCountry, newGraph) {
-  // Fetch new data each time a new sample is selected  
-  buildCharts(newCountry, newGraph);
+// function optionChanged(newCountry, newGraph) {
+//   // Fetch new data each time a new sample is selected  
+//   buildCharts(newCountry, newGraph);
   
+// }
+
+function optionChanged(newCountry) {
+  // Fetch new data each time a new sample is selected  
+  buildCharts(newCountry);  
 }
 
 // Initialize the dashboard
