@@ -204,7 +204,7 @@ function buildCharts(country, graph) {
         }
 
         var layout = {
-          title: `US - ${country} Natural Gas ${graph}`,
+          title: `US - ${graph} Natural Gas ${country}`,
           xaxis: { title: 'Year' },
           yaxis: { title: 'Consumed Natural Gas (Bscf)' }
         };
