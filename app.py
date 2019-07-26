@@ -84,15 +84,15 @@ app = Flask(__name__)
 @app.route("/")
 def home():
    
-    return render_template("Dashboard.html")
-    # return render_template("Map.html")
+    # return render_template("Dashboard.html")
+    return render_template("Map.html")
     # return "Hello"
 
 # # Maps Route
-# @app.route("/Dashboard")
-# def Dashboard():
+@app.route("/Dashboard")
+def Dashboard():
 
-#     return render_template("Dashboard.html")
+    return render_template("Dashboard.html")
  
 # #Charts Route
 # @app.route("/Charts")

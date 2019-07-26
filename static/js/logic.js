@@ -35,7 +35,7 @@ function init() {
   //       .property("value", country);
   //   });
 
-    graphYears = [2017,2016,2015,2014,2013,2012,2011,2010,2009,2008,2007,2006,2005,2004,2003,2002,2001,2000,1999,1998,1997,1996,1995,1994,1993,1992,1991,1990]
+    graphYears = [2017,2016,2015,2014,2013,2012,2011,2010,2009,2008,2007,2006,2005,2004,2003,2002,2001,2000,1999]
 
     graphYears.forEach((graph) => {
       selector
@@ -46,7 +46,8 @@ function init() {
 
     var selector1 = d3.select("#selDataset1");
 
-    graphNames = ["Total Energy Consumption", "gdp", "emissions"];
+    // graphNames = ["Total Energy Consumption", "gdp", "emissions"];
+    graphNames = ["Nat Gas Consumption"];
     graphNames.forEach((graph) => {
       selector1
         .append("option")
@@ -58,10 +59,15 @@ function init() {
     const firstYear = graphYears[0];
     const firstGraph = graphNames[0];
 
-    var param = "TotEnerCon"
-    var maxparam = 3200;
-    var unit = "Million Tonnes of Oil Equivalent"
-    var pos = parseInt(1990)-parseInt(1990)
+    // var param = "TotEnerCon"
+    // var maxparam = 3200;
+    // var unit = "Million Tonnes of Oil Equivalent"
+    // var pos = parseInt(1990)-parseInt(1990)
+
+    var param = "NatGasComp"
+    var maxparam = 4500;
+    var unit = "Billion of cubic feet"
+    var pos = parseInt(1999)-parseInt(1999)
     
     // console.log(pos)
     // console.log(param)
@@ -76,6 +82,11 @@ init();
 
 function optionChanged(newYear,newGraph) {
   switch (newGraph) {
+    case "Nat Consumption":
+      var param = "NatGasComp"    
+      var maxparam = 4500;
+      var unit = "Bscf";
+      break;
     case "Total Energy Consumption":
       var param = "TotEnerCon"      
       var maxparam = 3200;
@@ -115,9 +126,12 @@ function buildMap(countryData, param, pos, maxparam, unit,flag) {
 
   var myMap = L.map("map1", {
     center: [
-        10.5994, -7.6731
+        // 10.5994, -7.6731
+        // 37.8, -96
+        36, -96
     ],
-    zoom: 2.75
+    // zoom: 2.75
+    zoom: 3.65
   })
   
   // Defining Listeners
