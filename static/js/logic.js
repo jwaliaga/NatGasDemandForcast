@@ -82,7 +82,7 @@ init();
 
 function optionChanged(newYear,newGraph) {
   switch (newGraph) {
-    case "Nat Consumption":
+    case "Nat Gas Consumption":
       var param = "NatGasComp"    
       var maxparam = 4500;
       var unit = "Bscf";
@@ -104,7 +104,8 @@ function optionChanged(newYear,newGraph) {
       break;
   }
 
-  var pos = parseInt(newYear)-1990
+  var pos = parseInt(newYear)-parseInt(1999)
+  console.log(pos)
 
   if (myMap && myMap.remove){
     myMap.off();
@@ -182,10 +183,13 @@ function buildMap(countryData, param, pos, maxparam, unit,flag) {
     accessToken: API_KEY
   }).addTo(myMap);
 
-  L.geoJson(countryData).addTo(myMap);  
+  L.geoJson(countryData).addTo(myMap);   
 
   geojson = L.geoJson(countryData, {
     style: function (feature) {
+      console.log(param)
+      console.log(feature.properties[param])
+      console.log(feature.properties[param][3])
       return {
         fillColor: getColor(feature.properties[param][pos], maxparam),
         weight: 2,
