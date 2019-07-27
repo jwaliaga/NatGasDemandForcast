@@ -16,6 +16,16 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.2.228/pdf.js"></script>
 
+  <style>
+    #canvas_container {
+        width: 1700px;
+        height: 750px;
+        overflow: auto;
+        text-align: center;
+        border: solid 3px;
+    }
+  </style>
+
 </head>
 
 
@@ -104,11 +114,9 @@
                   </div>
                 </div>
 
-                <div id="my_pdf_viewer">
+                <!-- <div id="my_pdf_viewer">
 
-                    <iframe src="GoM.pps" width="800px" heigt="600px"></iframe>
-
-                    <div id="canvas_container">
+                     <div id="canvas_container">
                         <canvas id="pdf_renderer"></canvas>
                     </div>
                     
@@ -121,8 +129,7 @@
                         <button id="zoom_in">+</button>
                         <button id="zoom_out">-</button>
                     </div>
-                </div>
-                
+                </div> -->
 
               </div>
 
@@ -130,6 +137,32 @@
           </div>
         </div>
 
+
+
+        <div class="row lg-12">
+          <div id="my_pdf_viewer">
+        
+            <div id="canvas_container">
+              <canvas id="pdf_renderer"></canvas>
+            </div>
+        
+            <div id="navigation_controls">
+              <button id="go_previous">Previous</button>
+              <input id="current_page" value="1" type="number" />
+              <button id="go_next">Next</button>
+            </div>
+            <div id="zoom_controls">
+              <button id="zoom_in">+</button>
+              <button id="zoom_out">-</button>
+            </div>
+          </div>
+        </div>
+
+
+
+
+
+        
       </div>
       <!-- content-wrapper ends -->
       <!-- footer-->
@@ -169,6 +202,8 @@
     crossorigin="anonymous"></script>
 
   <!-- JavaScript MainFiles-->.
+  <!-- <script language="javascript">var pdf_url="{{url_for('static', filename='js/NatGasPrice.pdf') }}"</script> -->
+  <script language="javascript">var pdf_url="{{url_for('static', filename='slides/Presentation.pdf') }}"</script>
   <script src="{{ url_for('static', filename='js/Presentation.js') }}"></script>
   <!-- base:js -->
   <script src="../static/vendors/base/vendor.bundle.base.js"></script>
