@@ -47,7 +47,7 @@ function init() {
     var selector1 = d3.select("#selDataset1");
 
     // graphNames = ["Total Energy Consumption", "gdp", "emissions"];
-    graphNames = ["Nat Gas Consumption"];
+    graphNames = ["Nat Gas Consumption","Nat Gas Production"];
     graphNames.forEach((graph) => {
       selector1
         .append("option")
@@ -83,14 +83,14 @@ init();
 function optionChanged(newYear,newGraph) {
   switch (newGraph) {
     case "Nat Gas Consumption":
-      var param = "NatGasComp"    
+      var param = "NatGasComp";
       var maxparam = 4500;
       var unit = "Bscf";
       break;
-    case "Total Energy Consumption":
-      var param = "TotEnerCon"      
-      var maxparam = 3200;
-      var unit = "Million Tonnes of Oil Equivalent";
+    case "Nat Gas Production":
+      var param = "NatGasProd";
+      var maxparam = 6500;
+      var unit = "Bscf";
       break;
     case "gdp":
       var param = "GDP";

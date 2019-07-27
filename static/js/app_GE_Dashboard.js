@@ -97,30 +97,6 @@ function buildCharts(country, graph) {
   console.log(country)
   console.log(graph)
 
-  // switch (country) {
-  //   case "Consumption":
-  //     graphNames = ["Industrial", "Electric", "Commercial", "Residential","Total"];
-  //     break;
-  //   case "Price":
-  //     graphNames = ["Res-Com", "Elec-Ind"];
-  //     break;
-  //   case "Production":
-  //       graphNames = ["Total"];
-  //     break;
-  // }
-
-  // var selector1 = d3.select("#selDataset1");  
-  
-  // graphNames.forEach((graph) => {
-  //   console.log(graph)
-  //   selector1
-  //     .append("option")
-  //     .text(graph)
-  //     .property("value", graph);
-  // })
-
-  // const firstGraph = graphNames[0];
-
   // @TODO: Use `d3.json` to fetch the sample data for the plots
   d3.json("/data").then(function (data) {
 
@@ -305,16 +281,67 @@ function buildCharts(country, graph) {
               x: data.Date,
               y: data.Price_HH,
               name: 'Henry Hub',
-              type: 'scatter'
+              type: 'scatter',
+              mode: 'lines',
+              line:{
+                color: "gray",
+              }
             };
-            var all_traces = [trace1];
+            var trace3 = {
+              x: data.Date,
+              y: data.Total,
+              name: 'Consumption',
+              yaxis: "y2",
+              type: 'scatter',
+              mode: 'lines',
+              line:{
+                dash: 'dot',
+                color: "red",
+              }
+            };
+            var trace2 = {
+              x: data.Date,
+              y: data.Prod,
+              name: 'Production',
+              yaxis: "y2",
+              type: 'scatter',
+              mode: 'lines',
+              line:{
+                dash: 'solid',
+                color: "red",
+              }
+            };
+            var all_traces = [trace1, trace2, trace3];
             break;
         }
-        var layout = {
-          title: `US - Natural Gas ${country}`,
-          xaxis: { title: 'Year' },
-          yaxis: { title: `Natural Gas ${country} (US$/MMBTU)` }
-        };
+
+        if (graph === "Total"){          
+          var layout = {
+            title: `US - Natural Gas ${country}`,            
+            xaxis: { title: 'Year' },
+            yaxis: { title: `Natural Gas ${country} (US$/MMBTU)`,
+            range: [0, 30] },
+            yaxis2: {title: `Natural Gas Volumes (Bscf)`,
+            titlefont: {color: "red"},
+            tickfont: {color: "red"},
+            overlaying: "y",
+            side: "right",
+            range: [0, 3500]},
+            showlegend : true,
+            legend:{
+              x: 0.0,
+              y: 1.0
+            }
+          };
+        }
+        else {
+          var layout = {
+            title: `US - Natural Gas ${country}`,
+            xaxis: { title: 'Year' },
+            yaxis: { title: `Natural Gas ${country} (US$/MMBTU)` }
+          };
+        }
+        
 
         Plotly.newPlot('temp-stacked-lineChart', all_traces, layout, { responsive: true });
 

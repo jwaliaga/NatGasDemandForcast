@@ -94,6 +94,11 @@ def Dashboard():
 
     return render_template("Dashboard.html")
  
+
+@app.route("/Presentation")
+def Presentation():
+
+    return render_template("Presentation.html") 
 # #Charts Route
 # @app.route("/Charts")
 # def Charts():
@@ -117,6 +122,7 @@ def data():
         "Price_Com": df_test.Price_Com.values.tolist(),
         "Price_Res": df_test.Price_Res.values.tolist(),
         "Price_HH": df_test.Price_HH.values.tolist(),
+        "Prod": df_test.Prod.values.tolist()
     }    
     return jsonify(dict_final)
 
