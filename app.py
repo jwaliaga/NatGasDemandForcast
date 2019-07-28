@@ -38,6 +38,7 @@ engine= sqlalchemy.create_engine(url)
 # bubble_df = pd.read_sql("SELECT * FROM bubble_table", engine)
 
 df_test = pd.read_sql("SELECT * FROM gasdemand", engine)
+df_test_for = pd.read_sql("SELECT * FROM gasdemandfor", engine) 
 
 # Function that ranks a country for a specific topic
 def funRankCountry(df_data,enertype,list_Col_NOT,country):
@@ -99,6 +100,12 @@ def Dashboard():
 def Presentation():
 
     return render_template("Presentation.html") 
+
+@app.route("/Results")
+def Results():
+
+    return render_template("Results.html") 
+
 # #Charts Route
 # @app.route("/Charts")
 # def Charts():
@@ -125,6 +132,16 @@ def data():
         "Prod": df_test.Prod.values.tolist()
     }    
     return jsonify(dict_final)
+
+@app.route("/datafor")
+def datafor():
+    dict_final_for = {
+        "ForDate" : df_test_for.Date.values.tolist(),
+        "ForCon" : df_test_for.ForCon.values.tolist(),
+        "Date" : df_test.Date.values.tolist(),
+        "Total" : df_test.Total.values.tolist()
+    }
+    return jsonify(dict_final_for)
 
 @app.route("/countries")
 def countries():
