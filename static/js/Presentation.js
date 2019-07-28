@@ -1,7 +1,7 @@
 var myState = {
     pdf: null,
     currentPage: 1,
-    zoom: 1
+    zoom: 1.1
 }
 
 pdfjsLib.getDocument(pdf_url).then((pdf) => {
