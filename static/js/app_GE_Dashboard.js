@@ -372,31 +372,6 @@ function init() {
         .property("value", country);
     });  
 
-    // switch (country) {
-    //   case "Consumption":
-    //     graphNames = ["Industrial", "Electric", "Commercial", "Residential","Total"];
-    //     break;
-    //   case "Price":
-    //     graphNames = ["Res-Com", "Elec-Ind"];
-    //     break;
-    //   case "Production":
-    //       graphNames = ["Total"];
-    //     break;
-    // }
-  
-    // var selector1 = d3.select("#selDataset1");  
-    
-    // graphNames.forEach((graph) => {
-    //   console.log(graph)
-    //   selector1
-    //     .append("option")
-    //     .text(graph)
-    //     .property("value", graph);
-    // })
-  
-    // const firstGraph = graphNames[0];
-
-
     var selector1 = d3.select("#selDataset1");
 
     graphNames = ["Industrial", "Electric", "Commercial", "Residential","Total"];
@@ -415,9 +390,6 @@ function init() {
     const firstGraph = graphNames[0];
     buildCharts(firstCountry, firstGraph);
 
-    // const firstCountry = countryNames[0];
-    // buildCharts(firstCountry);
-
   });
 }
 
@@ -426,11 +398,6 @@ function optionChanged(newCountry, newGraph) {
   // Fetch new data each time a new sample is selected
   buildCharts(newCountry, newGraph);  
 }
-
-// function optionChanged(newCountry) {
-//   // Fetch new data each time a new sample is selected  
-//   buildCharts(newCountry);  
-// }
 
 // Initialize the dashboard
 

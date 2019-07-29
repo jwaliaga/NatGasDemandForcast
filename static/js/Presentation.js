@@ -6,7 +6,6 @@ var myState = {
 
 pdfjsLib.getDocument(pdf_url).then((pdf) => {
 
-    // more code here
     myState.pdf = pdf;
     render();
 
@@ -15,7 +14,6 @@ pdfjsLib.getDocument(pdf_url).then((pdf) => {
 function render() {
     myState.pdf.getPage(myState.currentPage).then((page) => {
 
-        // more code here
         var canvas = document.getElementById("pdf_renderer");
         var ctx = canvas.getContext('2d');
 

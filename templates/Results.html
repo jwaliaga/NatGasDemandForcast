@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Global Energy</title>
+  <title>Natural Gas Consumption Forecast</title>
   <link rel="shortcut icon" href="../static/images/Tabicon.png" />
 
   <!-- Style CSS-->
@@ -26,7 +26,7 @@
           <div class="navbar-menu-wrapper d-flex align-items-center justify-content-between">
             <!-- LogoSection -->
             <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-              <a class="navbar-brand brand-logo" href="https://globalenergy.herokuapp.com"><img
+              <a class="navbar-brand brand-logo" href="https://natgasdemand.herokuapp.com"><img
                   src="../static/images/Globe-Logo-lg.svg" alt="logo" /></a>
               <!-- <a class="navbar-brand brand-logo-mini" href="index.html"><img src="images/logo-mini.svg"
                   alt="logo" /></a> -->
@@ -39,12 +39,6 @@
                   <span class="menu-title">Map</span>
                 </a>
               </li>
-              <!-- <li class="nav-item">
-                <a class="nav-link" href="/Charts">
-                  <i class="mdi mdi-chart-bubble icon-lg menu-icon"></i>
-                  <span class="menu-title">Bubble Chart</span>
-                </a>
-              </li> -->
               <li class="nav-item">
                 <a class="nav-link" href="/Dashboard">
                   <i class="mdi mdi-view-dashboard  icon-lg menu-icon"></i>
@@ -67,7 +61,7 @@
 
             <ul class="navbar-nav navbar-nav-right">
               <li class="nav-item dropdown  d-lg-flex d-none">
-                <a class="navbar-brand brand-logo" href="https://github.com/aalejandroq/Global_Energy_Project.git"><img
+                <a class="navbar-brand brand-logo" href="https://github.com/jwaliaga/NatGasDemandForcast"><img
                     src="../static/images/Github-Logo-lg.svg" style="width:50px; height:50px" alt="logo" /></a>
               </li>
 
@@ -93,7 +87,7 @@
                 <div class="row">
                   <div class="col-md-12">
                     <div class="x_title font-weight-bold">
-                      <h2>Global Energy and GDP Overview</h2>
+                      <h2>US Natural Gas Demand Forecast</h2>
 
                       <div class="filter right">
                         <h5>SELECT Graph:</h5>
@@ -125,49 +119,15 @@
             </div>
           </div>
         </div>
-        <!-- <div class="row mt-4">
-          <div class="col-lg-12 grid-margin stretch-card">
-            <div class="card">
-              <div class="card-body">
-
-                <div class="row">
-                  <div class="col-md-12">
-                    <div class="x_title">
-                      <h2>Country Rankings</h2>
-
-                      <div class="clearfix"></div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-md-3">
-                    <div id="gauge" class="gauge"></div>
-                  </div>
-                  <div class="col-md-3">
-                    <div id="gauge_1" class="gauge"></div>
-                  </div>
-                  <div class="col-md-3">
-                    <div id="gauge_2" class="gauge"></div>
-                  </div>
-                  <div class="col-md-3">
-                    <div id="gauge_3" class="gauge"></div>
-                  </div>
-                </div>
-
-              </div>
-
-            </div>
-          </div>
-        </div> -->
+ 
       </div>
       <!-- content-wrapper ends -->
       <!-- footer-->
       <footer class="footer">
         <div class="footer-wrap">
           <div class="w-100 clearfix">
-            <span class="d-block text-center text-sm-center d-sm-inline-block">GECT © 2019 <a
-                href="https://globalenergy.herokuapp.com/" target="_blank">Global Energy Comsumption Team</a>. All
+            <span class="d-block text-center text-sm-center d-sm-inline-block">NGDFT © 2019 <a
+                href="https://natgasdemand.herokuapp.com" target="_blank">Natural Gas Demand Forecast Team</a>. All
               rights reserved.
             </span>
 
@@ -177,12 +137,7 @@
 
     </div>
 
-
-
-
   </div>
-
-
 
   <!-- Bootstrap JavaScript Libraries -->
   <script src="https://cdn.plot.ly/plotly-1.31.2.min.js"></script>
@@ -203,8 +158,6 @@
   <!-- base:js -->
   <script src="../static/vendors/base/vendor.bundle.base.js"></script>
   <script src="{{ url_for('static', filename='js/template.js') }}"></script>
-
-
 
 </body>
 

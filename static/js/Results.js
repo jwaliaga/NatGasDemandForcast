@@ -401,9 +401,6 @@ function init() {
     const firstGraph = graphNames[0];
     buildCharts(firstCountry, firstGraph);
 
-    // const firstCountry = countryNames[0];
-    // buildCharts(firstCountry);
-
   });
 }
 
@@ -412,12 +409,5 @@ function optionChanged(newCountry, newGraph) {
   // Fetch new data each time a new sample is selected
   buildCharts(newCountry, newGraph);  
 }
-
-// function optionChanged(newCountry) {
-//   // Fetch new data each time a new sample is selected  
-//   buildCharts(newCountry);  
-// }
-
-// Initialize the dashboard
 
 init();
