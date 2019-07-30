@@ -12,13 +12,26 @@ var geojson;
 // var myMap = L.map('map1').setView([37.8, -96], 4);
 
 
-function getColor(d,maxparam){ 
+function getColor(d, maxparam) {
+  var intervals = 25;
+  var domainArray = [];
+  for (i = 0; i < intervals; i++) {
+    domainArray[i] = maxparam / (1.5^(intervals-i));
+    console.log(intervals-i)
+  };
+  rangeArray = ['#E8E3E3', '#EBE0E0', '#EDDEDE', '#F0DBDB', '#F2D9D9',
+    '#F5D6D6', '#F7D4D4', '#FAD1D1', '#FCCFCF', '#FFCCCC',
+    '#FF9999', '#FA9E9E', '#FF6666', '#F76E6E', '#FF3333',
+    '#F53D3D', '#FF0000', '#F20D0D', '#CC0000', '#C20A0A',
+    '#A32929', '#990000', '#7A1F1F', '#660000', '#521414'];
   var color = d3.scaleLinear()
     // .domain([0, maxparam/64 , maxparam/32,maxparam/16, maxparam/8,maxparam/4,maxparam/2,maxparam])
     // .range(["lightgray", '#FED976', '#FEB24C','#FD8D3C','#FC4E2A','#E31A1C','#BD0026','#800026']);
-    .domain([0, maxparam/(1.5^7), maxparam/(1.5^6) , maxparam/(1.5^5), maxparam/(1.5^4), maxparam/(1.5^3),maxparam/(1.5^2),maxparam/(1.5),maxparam])
-    .range(["white", "#b2182b",'#FED976', '#FEB24C','#FD8D3C','#FC4E2A','#E31A1C','#BD0026','#800026']);
-    // .range([["#b2182b", "#d6604d", "#f4a582", "#fddbc7", "#d1e5f0", "#92c5de", "#4393c3", "#2166ac"]])
+    // .domain([0, maxparam/(1.5^7), maxparam/(1.5^6) , maxparam/(1.5^5), maxparam/(1.5^4), maxparam/(1.5^3),maxparam/(1.5^2),maxparam/(1.5),maxparam])
+    // .range(["white", "#b2182b",'#FED976', '#FEB24C','#FD8D3C','#FC4E2A','#E31A1C','#BD0026','#800026']);
+    .domain(domainArray)
+    .range(rangeArray);
+  // .range([["#b2182b", "#d6604d", "#f4a582", "#fddbc7", "#d1e5f0", "#92c5de", "#4393c3", "#2166ac"]])
   return color(d)
 }
 
@@ -35,52 +48,52 @@ function init() {
   //       .property("value", country);
   //   });
 
-    graphYears = [2017,2016,2015,2014,2013,2012,2011,2010,2009,2008,2007,2006,2005,2004,2003,2002,2001,2000,1999]
+  graphYears = [2017, 2016, 2015, 2014, 2013, 2012, 2011, 2010, 2009, 2008, 2007, 2006, 2005, 2004, 2003, 2002, 2001, 2000, 1999]
 
-    graphYears.forEach((graph) => {
-      selector
-        .append("option")
-        .text(graph)
-        .property("value", graph);
-    })
+  graphYears.forEach((graph) => {
+    selector
+      .append("option")
+      .text(graph)
+      .property("value", graph);
+  })
 
-    var selector1 = d3.select("#selDataset1");
+  var selector1 = d3.select("#selDataset1");
 
-    // graphNames = ["Total Energy Consumption", "gdp", "emissions"];
-    graphNames = ["Nat Gas Consumption","Nat Gas Production"];
-    graphNames.forEach((graph) => {
-      selector1
-        .append("option")
-        .text(graph)
-        .property("value", graph);
-    })
+  // graphNames = ["Total Energy Consumption", "gdp", "emissions"];
+  graphNames = ["Nat Gas Consumption", "Nat Gas Production"];
+  graphNames.forEach((graph) => {
+    selector1
+      .append("option")
+      .text(graph)
+      .property("value", graph);
+  })
 
-    // Use the first sample from the list to build the initial plots
-    const firstYear = graphYears[0];
-    const firstGraph = graphNames[0];
+  // Use the first sample from the list to build the initial plots
+  const firstYear = graphYears[0];
+  const firstGraph = graphNames[0];
 
-    // var param = "TotEnerCon"
-    // var maxparam = 3200;
-    // var unit = "Million Tonnes of Oil Equivalent"
-    // var pos = parseInt(1990)-parseInt(1990)
+  // var param = "TotEnerCon"
+  // var maxparam = 3200;
+  // var unit = "Million Tonnes of Oil Equivalent"
+  // var pos = parseInt(1990)-parseInt(1990)
 
-    var param = "NatGasComp"
-    var maxparam = 4500;
-    var unit = "Billion of cubic feet"
-    var pos = parseInt(1999)-parseInt(1999)
-    
-    // console.log(pos)
-    // console.log(param)
+  var param = "NatGasComp"
+  var maxparam = 4500;
+  var unit = "Billion of cubic feet"
+  var pos = parseInt(1999) - parseInt(1999)
 
-    // geojson = buildMap(countryData,param,pos,maxparam,unit,0)
-    myMap = buildMap(countryData,param,pos,maxparam,unit,0)
-   
+  // console.log(pos)
+  // console.log(param)
+
+  // geojson = buildMap(countryData,param,pos,maxparam,unit,0)
+  myMap = buildMap(countryData, param, pos, maxparam, unit, 0)
+
 }
 
 // Initialize the dashboard
 init();
 
-function optionChanged(newYear,newGraph) {
+function optionChanged(newYear, newGraph) {
   switch (newGraph) {
     case "Nat Gas Consumption":
       var param = "NatGasComp";
@@ -104,14 +117,14 @@ function optionChanged(newYear,newGraph) {
       break;
   }
 
-  var pos = parseInt(newYear)-parseInt(1999)
+  var pos = parseInt(newYear) - parseInt(1999)
   console.log(pos)
 
-  if (myMap && myMap.remove){
+  if (myMap && myMap.remove) {
     myMap.off();
     myMap.remove();
   }
-  myMap = buildMap(countryData,param,pos,maxparam,unit,1)
+  myMap = buildMap(countryData, param, pos, maxparam, unit, 1)
   // geojson = buildMap(countryData,param,pos,maxparam,unit,1)
   // Re_buildMap(countryData,param,pos,maxparam,unit)
 }
@@ -120,21 +133,21 @@ function updateRangeInput(elem) {
   $(elem).next().val($(elem).val());
 }
 
-function buildMap(countryData, param, pos, maxparam, unit,flag) {
+function buildMap(countryData, param, pos, maxparam, unit, flag) {
 
   // var myMap = L.map('map1').setView([25, -25], 4);
   // myMap.setZoom(2.5)
 
   var myMap = L.map("map1", {
     center: [
-        // 10.5994, -7.6731
-        // 37.8, -96
-        36, -96
+      // 10.5994, -7.6731
+      // 37.8, -96
+      36, -96
     ],
     // zoom: 2.75
     zoom: 3.65
   })
-  
+
   // Defining Listeners
   // #################################################################################################
 
@@ -183,7 +196,7 @@ function buildMap(countryData, param, pos, maxparam, unit,flag) {
     accessToken: API_KEY
   }).addTo(myMap);
 
-  L.geoJson(countryData).addTo(myMap);   
+  L.geoJson(countryData).addTo(myMap);
 
   geojson = L.geoJson(countryData, {
     style: function (feature) {
@@ -200,8 +213,8 @@ function buildMap(countryData, param, pos, maxparam, unit,flag) {
       }
     },
     onEachFeature: onEachFeature
-  }).addTo(myMap);  
-  
+  }).addTo(myMap);
+
   var info = L.control();
 
   info.onAdd = function (map) {
@@ -223,9 +236,15 @@ function buildMap(countryData, param, pos, maxparam, unit,flag) {
 
   legend.onAdd = function (map) {
 
-    var div = L.DomUtil.create('div', 'info legend'),
-      grades = [0, maxparam / 64, maxparam / 32, maxparam / 16, maxparam / 8, maxparam / 4, maxparam / 2, maxparam],
-      labels = [];
+    var div = L.DomUtil.create('div', 'info legend')
+    // grades = [0, maxparam / 64, maxparam / 32, maxparam / 16, maxparam / 8, maxparam / 4, maxparam / 2, maxparam],
+    var intervals = 25;
+    var domainArray = [];
+    for (i = 0; i < intervals; i++) {
+      domainArray[i] = maxparam / (1.5^(intervals-i));
+    };
+    grades = domainArray;
+    labels = [];
 
     // loop through our density intervals and generate a label with a colored square for each interval
     for (var i = 0; i < grades.length; i++) {
@@ -282,38 +301,45 @@ function Re_buildMap(countryData, param, pos, maxparam, unit) {
   }
   // #################################################################################################
 
-  console.log(param,pos)
-    
-    geojson.eachLayer(function(layer){
-      val = layer.feature.properties[param][pos]
-      // console.log(param,pos,val)
-      layer.setStyle({
-        fillColor: getColor(val, maxparam),       
-      })     
+  console.log(param, pos)
+
+  geojson.eachLayer(function (layer) {
+    val = layer.feature.properties[param][pos]
+    // console.log(param,pos,val)
+    layer.setStyle({
+      fillColor: getColor(val, maxparam),
     })
+  })
 
-    L.geoJson(countryData, {
-      onEachFeature: onEachFeature
-    })
+  L.geoJson(countryData, {
+    onEachFeature: onEachFeature
+  })
 
-    var item = document.getElementsByClassName('info legend')   
-    grades = [0, maxparam / 64, maxparam / 32, maxparam / 16, maxparam / 8, maxparam / 4, maxparam / 2, maxparam];
-    // loop through our density intervals and generate a label with a colored square for each interval
-    item[0].innerHTML = ""
-    for (var i = 0; i < grades.length; i++) {
-      item[0].innerHTML +=
-        '<i style="background:' + getColor(grades[i] + 1, maxparam) + '"></i> ' +
-        grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
-    }
-     
-     var info = document.getElementsByClassName('info');
-    console.log(info)
-     // method that we will use to update the control based on feature properties passed
-    console.log(param,pos)
+  var item = document.getElementsByClassName('info legend')
+  // grades = [0, maxparam / 64, maxparam / 32, maxparam / 16, maxparam / 8, maxparam / 4, maxparam / 2, maxparam];
+  var intervals=25;
+  var domainArray = [];
+  for (i=0; i<intervals; i++){
+    domainArray[i]= maxparam/ (1.5^(intervals-i));
+  };
+  grades=domainArray;
+  
+  // loop through our density intervals and generate a label with a colored square for each interval
+  item[0].innerHTML = ""
+  for (var i = 0; i < grades.length; i++) {
+    item[0].innerHTML +=
+      '<i style="background:' + getColor(grades[i] + 1, maxparam) + '"></i> ' +
+      grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+  }
 
-     info.update = function (props) {
-       this._div.innerHTML = '<h4>' + param + '</h4>' + (props ?
-         '<b>' + props.ADMIN + '</b><br />' + props[param][pos] + ' ' + unit
-         : 'Hover over a country');
-     };
+  var info = document.getElementsByClassName('info');
+  console.log(info)
+  // method that we will use to update the control based on feature properties passed
+  console.log(param, pos)
+
+  info.update = function (props) {
+    this._div.innerHTML = '<h4>' + param + '</h4>' + (props ?
+      '<b>' + props.ADMIN + '</b><br />' + props[param][pos] + ' ' + unit
+      : 'Hover over a country');
+  };
 }
