@@ -104,106 +104,64 @@ function buildCharts(country, graph) {
       case "Consumption":
 
         switch (graph){
-          case "Total":
+          case "SARIMA":
             var trace1 = {
               x: data.ForDate,
               y: data.ForCon,
               name: 'Forecast',
-            //   fill: 'tozeroy',
-              type: 'scatter',
-            //   mode: 'none',
-            //   stackgroup: 'one'
+              type: 'scatter'
             };
 
             var trace2 = {
               x: data.Date,
               y: data.Total,
-              name: 'Real',
-            //   fill: 'tonexty',
-              type: 'scatter',
-            //   mode: 'none',
-            //   stackgroup: 'one'
+              name: 'Real',           
+              type: 'scatter'
+
             };
 
-            // var trace3 = {
-            //   x: data.Date,
-            //   y: data.Commercial,
-            //   name: 'Commercial',
-            //   fill: 'tonexty',
-            //   type: 'scatter',
-            //   mode: 'none',
-            //   stackgroup: 'one'
-            // };
-
-            // var trace4 = {
-            //   x: data.Date,
-            //   y: data.Residential,
-            //   name: 'Residential',
-            //   fill: 'tonexty',
-            //   type: 'scatter',
-            //   mode: 'none',
-            //   stackgroup: 'one'
-            // };
-
-            // var all_traces = [trace1, trace2, trace3, trace4];
             var all_traces = [trace1, trace2];
             break;
-          case "Electric":
+          case "LINEAR REG":
               var trace1 = {
-                x: data.Date,
-                y: data.Electric,
-                name: 'Electric',
-                fill: 'tonexty',
-                type: 'scatter',
-                mode: 'none',
-                stackgroup: 'one'
+                x: data.ForDateReg,
+                y: data.ForConReg,
+                name: 'Forecast',
+                type: 'scatter'
               };
 
-              var all_traces = [trace1];
-              break;
-          case "Industrial":
-              var trace1 = {
+              var trace2 = {
                 x: data.Date,
-                y: data.Industrial,
-                name: 'Industrial',
-                fill: 'tozeroy',
-                type: 'scatter',
-                mode: 'none',
-                stackgroup: 'one'
-              };             
-        
-              var all_traces = [trace1];
-              break;
-          case "Residential":
-              var trace1 = {
-                x: data.Date,
-                y: data.Residential,
-                name: 'Residential',
-                fill: 'tonexty',
-                type: 'scatter',
-                mode: 'none',
-                stackgroup: 'one'
+                y: data.Total,
+                name: 'Real',           
+                type: 'scatter'
+  
               };
+  
+              var all_traces = [trace1, trace2];
+              break;
+          case "RANDOM FOREST":
+            var trace1 = {
+              x: data.ForDateRF,
+              y: data.ForConRF,
+              name: 'Forecast',
+              type: 'scatter'
+            };
 
-              var all_traces = [trace1];
-              break;
-          case "Commercial":
-              var trace1 = {
-                x: data.Date,
-                y: data.Commercial,
-                name: 'Commercial',
-                fill: 'tonexty',
-                type: 'scatter',
-                mode: 'none',
-                stackgroup: 'one'
-              };
-              
-              var all_traces = [trace1];
-              break;
+            var trace2 = {
+              x: data.Date,
+              y: data.Total,
+              name: 'Real',           
+              type: 'scatter'
+
+            };
+
+            var all_traces = [trace1, trace2];
+            break;
         }
 
         var layout = {
-          title: `US - ${graph} Natural Gas ${country}`,
+          title: `US - ${graph} Natural Gas ${country} Forecast`,
           xaxis: { title: 'Year' },
           yaxis: { title: 'Consumed Natural Gas (Bscf)' }
         };
@@ -357,36 +315,23 @@ function buildCharts(country, graph) {
 
 function init() {
   // Grab a reference to the dropdown select element
-  var selector = d3.select("#selDataset");
-
-  console.log("Wilson")
+  var selector = d3.select("#selDataset"); 
 
   // Use the list of country names to populate the dropdown
   
   d3.json("/countries").then((countryNames) => {
 
-    countryNames.forEach((country) => {
-      console.log(country)
-      selector
-        .append("option")
-        .text(country)
-        .property("value", country);
-    });
-
-    // countryNames = ["Consumption"];    
-    // console.log(countryNames)
-    // countryNames.forEach((graph) => {
-    //   console.log(graph)
+    // countryNames.forEach((country) => {
+    //   console.log(country)
     //   selector
     //     .append("option")
-    //     .text(graph)
-    //     .property("value", graph);
-    // })
-
+    //     .text(country)
+    //     .property("value", country);
+    // });
 
     var selector1 = d3.select("#selDataset1");
 
-    graphNames = ["Total"];    
+    graphNames = ["SARIMA","LINEAR REG","RANDOM FOREST"];    
     console.log(graphNames)
     graphNames.forEach((graph) => {
       console.log(graph)
@@ -404,10 +349,12 @@ function init() {
   });
 }
 
-function optionChanged(newCountry, newGraph) {
-
+// function optionChanged(newCountry, newGraph) {
+function optionChanged(newGraph) {
+  newCountry = "Consumption"
   // Fetch new data each time a new sample is selected
-  buildCharts(newCountry, newGraph);  
+  console.log(newGraph)
+  buildCharts(newCountry, newGraph);
 }
 
 init();

@@ -38,7 +38,12 @@ engine= sqlalchemy.create_engine(url)
 # bubble_df = pd.read_sql("SELECT * FROM bubble_table", engine)
 
 df_test = pd.read_sql("SELECT * FROM gasdemand", engine)
-df_test_for = pd.read_sql("SELECT * FROM gasdemandfor", engine) 
+df_test_for = pd.read_sql("SELECT * FROM gasdemandfor", engine)
+df_test_reg = pd.read_sql("SELECT * FROM gasdemandreg", engine)
+df_test_rf = pd.read_sql("SELECT * FROM gasdemandrf", engine)
+print(df_test_for.columns)
+print(df_test_reg.columns)
+print(df_test_rf.columns)
 
 # Function that ranks a country for a specific topic
 def funRankCountry(df_data,enertype,list_Col_NOT,country):
@@ -139,7 +144,11 @@ def datafor():
         "ForDate" : df_test_for.Date.values.tolist(),
         "ForCon" : df_test_for.ForCon.values.tolist(),
         "Date" : df_test.Date.values.tolist(),
-        "Total" : df_test.Total.values.tolist()
+        "Total" : df_test.Total.values.tolist(),
+        "ForDateReg" : df_test_reg.Date.values.tolist(),
+        "ForConReg" : df_test_reg.ForCon.values.tolist(),
+        "ForDateRF" : df_test_rf.Date.values.tolist(),
+        "ForConRF" : df_test_rf.pred_t0.values.tolist()
     }
     return jsonify(dict_final_for)
 

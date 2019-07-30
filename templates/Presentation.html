@@ -63,7 +63,8 @@
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/Results">
-                  <i class="mdi mdi-view-dashboard  icon-lg menu-icon"></i>
+                  <!-- <i class="mdi mdi-view-dashboard  icon-lg menu-icon"></i> -->
+                  <i class="mdi mdi-map  icon-lg menu-icon"></i> 
                   <span class="menu-title">Results</span>
                 </a>
               </li>
@@ -97,9 +98,9 @@
                 <div class="row">
                   <div class="col-md-12">
                     <div class="x_title font-weight-bold">
-                      <h2>Data Analysis and Forecast Methodologies</h2>
+                      <!-- <h2>Data Analysis and Forecast Methodologies</h2> -->
 
-                      <div class="filter right">
+                      <!-- <div class="filter right">
                         <h5>SELECT Graph:</h5>
                         <select id="selDataset1" onchange="optionChanged(selDataset.value,this.value)"
                           style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc"></select>
@@ -110,8 +111,17 @@
                         <select id="selDataset" onchange="optionChanged(this.value,selDataset1.value)"
                           style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
                         </select>
-                      </div>
+                      </div> -->
 
+                      <div id="navigation_controls" >
+                        <button id="go_previous">Previous</button>
+                        <input id="current_page" value="1" type="number" />
+                        <button id="go_next">Next</button>
+                      </div>
+                      <div id="zoom_controls" >
+                        <button id="zoom_in">+</button>
+                        <button id="zoom_out">-</button>
+                      </div>
 
                       <div class="clearfix"></div>
                     </div>
@@ -131,7 +141,7 @@
               <canvas id="pdf_renderer"></canvas>
             </div>
         
-            <div id="navigation_controls">
+            <!-- <div id="navigation_controls">
               <button id="go_previous">Previous</button>
               <input id="current_page" value="1" type="number" />
               <button id="go_next">Next</button>
@@ -139,7 +149,7 @@
             <div id="zoom_controls">
               <button id="zoom_in">+</button>
               <button id="zoom_out">-</button>
-            </div>
+            </div> -->
           </div>
         </div>
         

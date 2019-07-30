@@ -13,13 +13,30 @@ var geojson;
 
 
 function getColor(d,maxparam){ 
-  var color = d3.scaleLinear()
-    // .domain([0, maxparam/64 , maxparam/32,maxparam/16, maxparam/8,maxparam/4,maxparam/2,maxparam])
-    // .range(["lightgray", '#FED976', '#FEB24C','#FD8D3C','#FC4E2A','#E31A1C','#BD0026','#800026']);
+
+  var color = d3.scaleLinear()    
     .domain([0, maxparam/(1.5^7), maxparam/(1.5^6) , maxparam/(1.5^5), maxparam/(1.5^4), maxparam/(1.5^3),maxparam/(1.5^2),maxparam/(1.5),maxparam])
-    .range(["white", "#b2182b",'#FED976', '#FEB24C','#FD8D3C','#FC4E2A','#E31A1C','#BD0026','#800026']);
-    // .range([["#b2182b", "#d6604d", "#f4a582", "#fddbc7", "#d1e5f0", "#92c5de", "#4393c3", "#2166ac"]])
+    .range(["white", "#b2182b",'#FED976', '#FEB24C','#FD8D3C','#FC4E2A','#E31A1C','#BD0026','#800026']);    
   return color(d)
+
+// var intervals=25;
+// var domainArray = []
+//  for (i=0; i<intervals; i++){
+//    console.log("Wilson")
+//    domainArray[i] = i*maxparam/intervals;
+//  }; 
+//  var rangeArray=['#E8E3E3','#EBE0E0','#EDDEDE','#F0DBDB','#F2D9D9',
+//  '#F5D6D6','#F7D4D4','#FAD1D1','#FCCFCF','#FFCCCC',
+//  '#FF9999','#FA9E9E','#FF6666','#F76E6E','#FF3333',
+//  '#F53D3D','#FF0000','#F20D0D','#CC0000','#C20A0A',
+//  '#A32929','#990000','#7A1F1F','#660000','#521414'];
+//  var color = d3.scaleLinear()  
+//    .domain(domainArray)
+//    .range(rangeArray);
+
+//  return color(d)
+
+
 }
 
 function init() {
@@ -213,7 +230,7 @@ function buildMap(countryData, param, pos, maxparam, unit,flag) {
   // method that we will use to update the control based on feature properties passed
   info.update = function (props) {
     this._div.innerHTML = '<h4>' + param + '</h4>' + (props ?
-      '<b>' + props.ADMIN + '</b><br />' + props[param][pos] + ' ' + unit
+      '<b>' + props.name + '</b><br />' + props[param][pos] + ' ' + unit
       : 'Hover over a country');
   };
 
